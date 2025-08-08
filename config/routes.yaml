@@ -1,0 +1,4 @@
+convert:
+  path: /convert
+  controller: App\Controller\ConvertController::convert
+  methods: [GET]

@@ -1,0 +1,11 @@
+services:
+  # Map interface to implementation
+  App\Provider\RateProviderInterface: '@App\Provider\YamlRateProvider'
+
+  App\Provider\YamlRateProvider:
+    arguments:
+      $rates: '%currency_rates%'
+
+  App\Service\CurrencyConverter:
+    arguments:
+      $provider: '@App\Provider\RateProviderInterface'
