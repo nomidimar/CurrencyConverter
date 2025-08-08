@@ -42,4 +42,4 @@ docker compose run --rm php composer test
 ## Notes
 - The service wiring is done in `public/index.php` by reading `config/services.yaml` via `symfony/yaml`.
 - Rates are declared in `config/packages/currency_rates.yaml`.
-- This is a minimal, easy-to-run example meant for the coding task; it is **not** a full Symfony app.
+- Whenever someone pushed to gitlab, the pipelines run the unit tests, php stan and fixer

@@ -12,7 +12,9 @@ class ConversionResult
         public float $rate
     ) {
     }
-
+    /**
+     * @return array<string, float|string>
+     */
     public function toArray(): array
     {
         return [

@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, xml, intl
+        tools: composer
+
+    - name: Install dependencies
+      run: composer install --no-progress --no-suggest --prefer-dist
+
+    - name: Fix permissions for PHP-CS-Fixer
+      run: chmod +x vendor/bin/php-cs-fixer
+
+    - name: Run PHPUnit tests
+      run: php vendor/bin/phpunit --coverage-text
+
+    - name: Run PHPStan static analysis
+      run: php vendor/bin/phpstan analyse src tests --level=max
+
+    - name: Run PHP-CS-Fixer check
+      run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
